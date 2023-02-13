@@ -28,6 +28,26 @@ void mltp_comp_numb_pntr(complex_digit *cd, const float *number);
 
 void test_mltp_comp_numb(complex_digit &exp_cd, complex_digit &fact_cd);
 
+#pragma pack(1)
+
+struct dot{
+    float x;
+    float y;
+};
+
+struct circle {
+    dot center;
+    float radius;
+};
+
+#pragma pack()
+
+void move_circle_ref(circle &crc, float &vector_x, float &vector_y);
+
+void move_circle_pntr(circle *crc, const float *vector_x, const float *vector_y);
+
+void test_move_circle(circle &exp_crc, circle &fact_crc);
+
 void lab_1();
 
 #endif //CLION_PROGRAMMING_PASS_BY_REFERENCE_H
