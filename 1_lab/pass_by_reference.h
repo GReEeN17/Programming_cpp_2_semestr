@@ -13,6 +13,21 @@ void disc_func_part_pntr(float *var);
 
 void test_disc_func_part(float &exp_var, float &fact_var);
 
+#pragma pack(1)
+
+struct complex_digit {
+    float real_part;
+    float im_part;
+};
+
+#pragma pack()
+
+void mltp_comp_numb_ref(complex_digit &cd, float &number);
+
+void mltp_comp_numb_pntr(complex_digit *cd, const float *number);
+
+void test_mltp_comp_numb(complex_digit &exp_cd, complex_digit &fact_cd);
+
 void lab_1();
 
 #endif //CLION_PROGRAMMING_PASS_BY_REFERENCE_H
