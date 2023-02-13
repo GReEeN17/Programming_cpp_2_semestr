@@ -14,8 +14,6 @@ private:
 public:
     StrParser (std::string parsing_str);
 
-    void set_var(std::string parsing_str);
-
     void split_str();
 
     void add_separator (std::string separator);
@@ -25,8 +23,6 @@ public:
     void get_next_str(std::string next_string);
 
     void indicate_if_parsed();
-
-    void lab_2();
 };
 
 #endif //CLION_PROGRAMMING_STRING_PARSER_H

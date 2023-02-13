@@ -8,10 +8,6 @@ StrParser::StrParser(std::string parsing_str) {
     this->parsing_str = parsing_str;
 }
 
-void StrParser::set_var(std::string parsing_str) {
-    this->parsing_str = parsing_str;
-}
-
 void StrParser::split_str() {
     if (this->is_parsed) return;
     if (this->parsing_str.empty()) {
