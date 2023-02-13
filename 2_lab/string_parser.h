@@ -5,11 +5,12 @@
 
 class StrParser {
 private:
-    std::string parsing_str;
+    std::string parsing_str = "";
     std::vector<std::string> separators;
     std::vector<std::string> parsed_str;
-    bool is_parsed;
-    int len_separators;
+    bool is_parsed = false;
+    int len_separators = 0;
+    int len_parsed_str = 0;
 public:
     StrParser (std::string parsing_str);
 
