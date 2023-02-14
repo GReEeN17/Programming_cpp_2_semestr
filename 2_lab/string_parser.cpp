@@ -4,7 +4,7 @@
 #include <vector>
 #include "string_parser.h"
 
-StrParser::StrParser(std::string parsing_str) {
+StrParser::StrParser(std::string &parsing_str) {
     this->parsing_str = parsing_str;
 }
 
@@ -15,10 +15,10 @@ void StrParser::split_str() {
         return;
     }
     int i = 0;
-    std::string gap_str = "";
-    while (this->parsing_str[i] != '\n') {
-        i++;
-        std::string symb = &this->parsing_str[i];
+    std::string gap_str;
+    std::string symb;
+    while (this->parsing_str[i] != '\0') {
+        symb = this->parsing_str[i];
         bool is_in_sep = false;
         for (int j = 0; j < this->len_separators; j++) {
             if (symb == this->separators[j]) {
@@ -33,15 +33,21 @@ void StrParser::split_str() {
         }
         if (!is_in_sep)
             gap_str += this->parsing_str[i];
+        i++;
     }
-    if (!gap_str.empty())
+    if (!gap_str.empty()) {
         this->parsed_str.push_back(gap_str);
-    if (this->parsing_str.length() == ++i) is_parsed = true;
+        this->len_parsed_str++;
+    }
+    if (this->parsing_str.length() == i) is_parsed = true;
 }
 
-void StrParser::add_separator(std::string separator) {
+void StrParser::add_separator(std::string &separator) {
     this->separators.push_back(separator);
     this->len_separators++;
+    this->is_parsed = false;
+    this->len_parsed_str = 0;
+    this->parsed_str.clear();
 }
 
 void StrParser::delete_all_separators() {
@@ -49,9 +55,10 @@ void StrParser::delete_all_separators() {
     this->len_separators = 0;
 }
 
-void StrParser::get_next_str(std::string next_string) {
+void StrParser::get_next_str(std::string &next_string) {
     this->parsing_str = next_string;
     this->len_parsed_str = 0;
+    this->parsed_str.clear();
 }
 
 void StrParser::indicate_if_parsed() {
