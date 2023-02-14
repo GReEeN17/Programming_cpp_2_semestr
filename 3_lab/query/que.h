@@ -11,7 +11,9 @@ private:
 public:
     void add_number(int number);
 
-    void pop_number(int number);
+    void pop_number();
+
+    void print_que();
 
     friend void operator>>(Que& que, int number);
 
