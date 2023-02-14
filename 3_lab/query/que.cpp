@@ -29,7 +29,7 @@ void Que::print_que() {
     for (int i = this->start; i < this->end; i++) {
         std::cout << this->que[i] << " ";
     }
-    std::cout << "----------------------" << "\n";
+    std::cout << "\n" << "----------------------" << "\n";
 }
 
 void operator>>(Que& que, int number) {
