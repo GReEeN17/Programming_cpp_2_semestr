@@ -9,6 +9,8 @@ private:
 public:
     CircleClass(double x, double y, int radius);
 
+    void set_params(double x, double y, int radius);
+
     double square();
 
     double perimeter();
@@ -17,9 +19,13 @@ public:
 
     CVector2D position();
 
-    bool operator== ( const IPhysObject& ob ) const override;
+    bool operator== (const IPhysObject& ob ) const override;
 
     bool operator< ( const IPhysObject& ob ) const override;
+
+    bool equal(CircleClass& class_1, CircleClass& class_2) const;
+
+    bool less(CircleClass& class_1, CircleClass& class_2) const;
 
     void draw();
 
