@@ -14,6 +14,7 @@ void RectangleClass::set_params(double x_1, double y_1, double x_2, double y_2, 
     this->thi_vert.x = x_3; this->thi_vert.y = y_3;
     this->fth_vert.x = x_4; this->fth_vert.y = y_4;
     this->set_sides();
+    all_rect.insert(this);
 }
 
 void RectangleClass::set_sides() {
@@ -84,11 +85,7 @@ unsigned int RectangleClass::size() {
     return sizeof(*this);
 }
 
-void RectangleClass::init_class() {
-    this->initFromDialog();
-}
-
-void RectangleClass::draw_all_circles() {
+void RectangleClass::draw_all_rects() {
     for (auto i: all_rect) {
         std::cout << "-------------------" << "\n";
         i->draw();
@@ -111,7 +108,7 @@ void RectangleClass::summ_square() {
     std::cout << "Общая площадь всей системы: " << sum_sq << "\n";
 }
 
-void RectangleClass::center_mass_all_circles() {
+void RectangleClass::center_mass_all_rects() {
     double x = 0, y = 0, p = 0;
     for (auto i: all_rect) {
         CVector2D gap_center = i->position();

@@ -68,8 +68,7 @@ void CircleClass::initFromDialog() {
     std::cin >> x >> y;
     std::cout << "Введите радиус круга: " << "\n";
     std::cin >> r;
-    CircleClass CC(x, y, r);
-    all_circles.insert(&CC);
+    this->set_params(x, y, r);
 }
 
 const char* CircleClass::classname() {
@@ -78,10 +77,6 @@ const char* CircleClass::classname() {
 
 unsigned int CircleClass::size() {
     return sizeof(*this);
-}
-
-void CircleClass::init_class() {
-    this->initFromDialog();
 }
 
 void CircleClass::draw_all_circles() {

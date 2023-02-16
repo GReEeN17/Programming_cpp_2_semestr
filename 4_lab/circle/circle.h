@@ -7,23 +7,22 @@
 
 class CircleClass : public IGeoFig, public IDialogInitiable, public IPhysObject, public IPrintable, public BaseCObject{
 private:
-    static std::set<CircleClass*> all_circles;
     CVector2D center;
     int radius;
 public:
+    static std::set<CircleClass*> all_circles;
+
     CircleClass(double x, double y, int radius);
 
     void set_params(double x, double y, int radius);
 
-    static std::vector<CircleClass*> get_all_circles();
+    double square() override;
 
-    double square();
+    double perimeter() override;
 
-    double perimeter();
+    double mass() override;
 
-    double mass();
-
-    CVector2D position();
+    CVector2D position() override;
 
     bool operator== (const IPhysObject& ob ) const override;
 
@@ -33,25 +32,23 @@ public:
 
     bool less(CircleClass& class_1, CircleClass& class_2) const;
 
-    void draw();
+    void draw() override;
 
-    void initFromDialog();
+    void initFromDialog() override;
 
-    const char* classname();
+    const char* classname() override;
 
-    unsigned int size();
+    unsigned int size() override;
 
-    void init_class();
+    static void draw_all_circles();
 
-    void draw_all_circles();
+    static void summ_perimetr();
 
-    void summ_perimetr();
+    static void summ_square();
 
-    void summ_square();
+    static void center_mass_all_circles();
 
-    void center_mass_all_circles();
-
-    void summ_size();
+    static void summ_size();
 };
 
 #endif //CLION_PROGRAMMING_CIRCLE_H

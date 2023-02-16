@@ -6,7 +6,6 @@
 
 class RectangleClass : public IGeoFig, public IDialogInitiable, public IPhysObject, public IPrintable, public BaseCObject{
 private:
-    static std::set<RectangleClass*> all_rect;
     CVector2D fir_vert;
     CVector2D sec_vert;
     CVector2D thi_vert;
@@ -14,19 +13,21 @@ private:
     double fir_side;
     double sec_side;
 public:
+    static std::set<RectangleClass*> all_rect;
+
     RectangleClass(double x_1, double y_1, double x_2, double y_2, double x_3, double y_3, double x_4, double y_4);
 
     void set_params(double x_1, double y_1, double x_2, double y_2, double x_3, double y_3, double x_4, double y_4);
 
     void set_sides();
 
-    double square();
+    double square() override;
 
-    double perimeter();
+    double perimeter() override;
 
-    double mass();
+    double mass() override;
 
-    CVector2D position();
+    CVector2D position() override;
 
     bool operator== (const IPhysObject& ob ) const override;
 
@@ -36,25 +37,23 @@ public:
 
     bool less(RectangleClass& class_1, RectangleClass& class_2) const;
 
-    void draw();
+    void draw() override;
 
-    void initFromDialog();
+    void initFromDialog() override;
 
-    const char* classname();
+    const char* classname() override;
 
-    unsigned int size();
+    unsigned int size() override;
 
-    void init_class();
+    static void draw_all_rects();
 
-    void draw_all_circles();
+    static void summ_perimetr();
 
-    void summ_perimetr();
+    static void summ_square();
 
-    void summ_square();
+    static void center_mass_all_rects();
 
-    void center_mass_all_circles();
-
-    void summ_size();
+    static void summ_size();
 };
 
 
