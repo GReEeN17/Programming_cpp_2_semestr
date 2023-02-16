@@ -84,5 +84,50 @@ unsigned int RectangleClass::size() {
     return sizeof(*this);
 }
 
+void RectangleClass::init_class() {
+    this->initFromDialog();
+}
+
+void RectangleClass::draw_all_circles() {
+    for (auto i: all_rect) {
+        std::cout << "-------------------" << "\n";
+        i->draw();
+    }
+}
+
+void RectangleClass::summ_perimetr() {
+    double sum_p = 0;
+    for (auto i: all_rect) {
+        sum_p += i->perimeter();
+    }
+    std::cout << "Общий перриметр всей системы: " << sum_p << "\n";
+}
+
+void RectangleClass::summ_square() {
+    double sum_sq = 0;
+    for (auto i: all_rect) {
+        sum_sq += i->square();
+    }
+    std::cout << "Общая площадь всей системы: " << sum_sq << "\n";
+}
+
+void RectangleClass::center_mass_all_circles() {
+    double x = 0, y = 0, p = 0;
+    for (auto i: all_rect) {
+        CVector2D gap_center = i->position();
+        x += gap_center.x * i->mass();
+        y += gap_center.y * i->mass();
+        p += i->mass();
+    }
+    std::cout << "Центр масс всей системы: (" << x / p << ", " << y / p << ")\n";
+}
+
+void RectangleClass::summ_size() {
+    unsigned int sum_sz = 0;
+    for (auto i: all_rect) {
+        sum_sz += i->size();
+    }
+    std::cout << "Общий размер памяти, занимаемой системой: " << sum_sz << "\n";
+}
 
 #endif //CLION_PROGRAMMING_RECTANGLE_C

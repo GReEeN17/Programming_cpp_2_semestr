@@ -1,9 +1,12 @@
 #ifndef CLION_PROGRAMMING_RECTANGLE_H
 #define CLION_PROGRAMMING_RECTANGLE_H
 #include "../basic_classes.h"
+#include <iostream>
+#include <set>
 
 class RectangleClass : public IGeoFig, public IDialogInitiable, public IPhysObject, public IPrintable, public BaseCObject{
 private:
+    static std::set<RectangleClass*> all_rect;
     CVector2D fir_vert;
     CVector2D sec_vert;
     CVector2D thi_vert;
@@ -40,6 +43,18 @@ public:
     const char* classname();
 
     unsigned int size();
+
+    void init_class();
+
+    void draw_all_circles();
+
+    void summ_perimetr();
+
+    void summ_square();
+
+    void center_mass_all_circles();
+
+    void summ_size();
 };
 
 

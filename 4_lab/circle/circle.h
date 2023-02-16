@@ -3,11 +3,11 @@
 #include "../basic_classes.h"
 #include <vector>
 #include <iostream>
+#include <set>
 
 class CircleClass : public IGeoFig, public IDialogInitiable, public IPhysObject, public IPrintable, public BaseCObject{
 private:
-    static int len_all_classes;
-    static std::vector<CircleClass*> all_circles;
+    static std::set<CircleClass*> all_circles;
     CVector2D center;
     int radius;
 public:
@@ -52,8 +52,6 @@ public:
     void center_mass_all_circles();
 
     void summ_size();
-
-    void sort_figures();
 };
 
 #endif //CLION_PROGRAMMING_CIRCLE_H

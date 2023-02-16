@@ -12,7 +12,7 @@ void CircleClass::set_params(double x, double y, int radius) {
     this->center.x = x;
     this->center.y = y;
     this->radius = radius;
-    all_circles.push_back(this);
+    all_circles.insert(this);
 }
 
 double CircleClass::square() {
@@ -69,8 +69,7 @@ void CircleClass::initFromDialog() {
     std::cout << "Введите радиус круга: " << "\n";
     std::cin >> r;
     CircleClass CC(x, y, r);
-    all_circles.push_back(&CC);
-    len_all_classes++;
+    all_circles.insert(&CC);
 }
 
 const char* CircleClass::classname() {
@@ -86,53 +85,45 @@ void CircleClass::init_class() {
 }
 
 void CircleClass::draw_all_circles() {
-    for (int i = 0; i < len_all_classes; i++) {
+    for (auto i: all_circles) {
         std::cout << "-------------------" << "\n";
-        all_circles[i]->draw();
+        i->draw();
     }
 }
 
 void CircleClass::summ_perimetr() {
     double sum_p = 0;
-    for (int i = 0; i < len_all_classes; i++) {
-        sum_p += all_circles[i]->perimeter();
+    for (auto i: all_circles) {
+        sum_p += i->perimeter();
     }
     std::cout << "Общий перриметр всей системы: " << sum_p << "\n";
 }
 
 void CircleClass::summ_square() {
     double sum_sq = 0;
-    for (int i = 0; i < len_all_classes; i++) {
-        sum_sq += all_circles[i]->square();
+    for (auto i: all_circles) {
+        sum_sq += i->square();
     }
     std::cout << "Общая площадь всей системы: " << sum_sq << "\n";
 }
 
 void CircleClass::center_mass_all_circles() {
-    if (len_all_classes == 0) {
-        std::cout << "Центра массы нет, так как нет объектов" << "\n";
-    } else if (len_all_classes == 1) {
-        std::cout << "Координаты центра массы: (" << all_circles[0]->center.x << ", " << all_circles[0]->center.y << ")\n";
-    } else {
-        CVector2D fir_center = all_circles[0]->position();
-        CVector2D sec_center;
-        for (int i = 1; i < len_all_classes; i++) {
-            sec_center = all_circles[i]->position();
-            fir_center.x = (fir_center.x + sec_center.x) / 2;
-            fir_center.y = (fir_center.y + sec_center.y) / 2;
-        }
-        std::cout << "Координаты центра массы: (" << fir_center.x << ", " << fir_center.y << ")\n";
+    double x = 0, y = 0, p = 0;
+    for (auto i: all_circles) {
+        x += i->center.x * i->mass();
+        y += i->center.y * i->mass();
+        p += i->mass();
     }
+    std::cout << "Центр масс всей системы: (" << x / p << ", " << y / p << ")\n";
 }
 
 void CircleClass::summ_size() {
     unsigned int sum_sz = 0;
-    for (int i = 0; i < len_all_classes; i++) {
-        sum_sz += all_circles[i]->size();
+    for (auto i: all_circles) {
+        sum_sz += i->size();
     }
     std::cout << "Общий размер памяти, занимаемой системой: " << sum_sz << "\n";
 }
 
-void sort_figures();
 
 #endif //CLION_PROGRAMMING_CIRCLE_C
