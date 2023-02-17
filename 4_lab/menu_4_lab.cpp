@@ -11,8 +11,7 @@ void Menu4::set_cc() {
     std::cin >> x >> y;
     std::cout << "Введите радиус круга: " << "\n";
     std::cin >> r;
-    CircleClass* gap_cc = new CircleClass(x, y, r);
-    //CircleClass gap_cc(x, y, r);
+    auto* gap_cc = new CircleClass(x, y, r);
     this->all_circles.insert(gap_cc);
 }
 
@@ -20,8 +19,7 @@ void Menu4::set_rc() {
     double x_1, y_1, x_2, y_2, x_3, y_3, x_4, y_4;
     std::cout << "Введите координаты всех четырёх вершин: " << "\n";
     std::cin >> x_1 >> y_1 >> x_2 >> y_2 >> x_3 >> y_3 >> x_4 >> y_4;
-    RectangleClass* gap_rc = new RectangleClass(x_1, y_1, x_2, y_2, x_3, y_3, x_4, y_4);
-    //RectangleClass gap_rc(x_1, y_1, x_2, y_2, x_3, y_3, x_4, y_4);
+    auto* gap_rc = new RectangleClass(x_1, y_1, x_2, y_2, x_3, y_3, x_4, y_4);
     this->all_rect.insert(gap_rc);
 }
 
