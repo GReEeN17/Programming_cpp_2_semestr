@@ -65,8 +65,8 @@ void RectangleClass::draw() {
     std::cout << "Масса прямоугольника: " << this->mass() << "\n";
     CVector2D center = this->position();
     std::cout << "Координаты центра массы прямоугольника: (" << center.x << ", " << center.y << ")\n";
-    std::cout << "Класс прямоугольника" << this->classname() << "\n";
-    std::cout << "Размер занимаемой памяти прямоугольником" << this->size() << "\n";
+    std::cout << "Класс прямоугольника: " << this->classname() << "\n";
+    std::cout << "Размер занимаемой памяти прямоугольником: " << this->size() << "\n";
 }
 
 void RectangleClass::initFromDialog() {

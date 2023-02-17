@@ -5,8 +5,8 @@
 
 class Menu4 {
 private:
-    std::set<CircleClass> all_circles;
-    std::set<RectangleClass> all_rect;
+    std::set<CircleClass*> all_circles;
+    std::set<RectangleClass*> all_rect;
 public:
     void set_cc();
 

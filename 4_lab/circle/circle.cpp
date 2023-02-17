@@ -56,8 +56,8 @@ void CircleClass::draw() {
     std::cout << "Масса круга: " << this->mass() << "\n";
     CVector2D pos = this->position();
     std::cout << "Координаты центра масс: (" << pos.x << ", " << pos.y << ")\n";
-    std::cout << "Класс круга" << this->classname() << "\n";
-    std::cout << "Размер занимаемой памяти кругом" << this->size() << "\n";
+    std::cout << "Класс круга: " << this->classname() << "\n";
+    std::cout << "Размер занимаемой памяти кругом: " << this->size() << "\n";
 }
 
 void CircleClass::initFromDialog() {
