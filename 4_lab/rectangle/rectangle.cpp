@@ -14,7 +14,6 @@ void RectangleClass::set_params(double x_1, double y_1, double x_2, double y_2, 
     this->thi_vert.x = x_3; this->thi_vert.y = y_3;
     this->fth_vert.x = x_4; this->fth_vert.y = y_4;
     this->set_sides();
-    all_rect.insert(this);
 }
 
 void RectangleClass::set_sides() {
@@ -35,27 +34,27 @@ double RectangleClass::mass() {
 }
 
 CVector2D RectangleClass::position() {
-    CVector2D gap_pos;
+    CVector2D gap_pos{};
     gap_pos.x = (this->fir_vert.x + this->thi_vert.x) / 2;
     gap_pos.y = (this->fir_vert.y + this->thi_vert.y) / 2;
     return gap_pos;
 }
 
 bool RectangleClass::operator== (const IPhysObject& ob ) const {
-    const RectangleClass& CC = dynamic_cast<const RectangleClass&>(ob);
+    const auto& CC = dynamic_cast<const RectangleClass&>(ob);
     return equal(const_cast<RectangleClass &>(*this), const_cast<RectangleClass &>(CC));
 }
 
 bool RectangleClass::operator< ( const IPhysObject& ob ) const {
-    const RectangleClass& CC = dynamic_cast<const RectangleClass&>(ob);
+    const auto& CC = dynamic_cast<const RectangleClass&>(ob);
     return less(const_cast<RectangleClass &>(*this), const_cast<RectangleClass &>(CC));
 }
 
-bool RectangleClass::equal(RectangleClass& class_1, RectangleClass& class_2) const {
+bool RectangleClass::equal(RectangleClass& class_1, RectangleClass& class_2) {
     return class_1.mass() == class_2.mass();
 }
 
-bool RectangleClass::less(RectangleClass& class_1, RectangleClass& class_2) const {
+bool RectangleClass::less(RectangleClass& class_1, RectangleClass& class_2) {
     return class_1.mass() < class_2.mass();
 }
 
@@ -83,48 +82,6 @@ const char* RectangleClass::classname(){
 
 unsigned int RectangleClass::size() {
     return sizeof(*this);
-}
-
-void RectangleClass::draw_all_rects() {
-    for (auto i: all_rect) {
-        std::cout << "-------------------" << "\n";
-        i->draw();
-    }
-}
-
-void RectangleClass::summ_perimetr() {
-    double sum_p = 0;
-    for (auto i: all_rect) {
-        sum_p += i->perimeter();
-    }
-    std::cout << "Общий перриметр всей системы: " << sum_p << "\n";
-}
-
-void RectangleClass::summ_square() {
-    double sum_sq = 0;
-    for (auto i: all_rect) {
-        sum_sq += i->square();
-    }
-    std::cout << "Общая площадь всей системы: " << sum_sq << "\n";
-}
-
-void RectangleClass::center_mass_all_rects() {
-    double x = 0, y = 0, p = 0;
-    for (auto i: all_rect) {
-        CVector2D gap_center = i->position();
-        x += gap_center.x * i->mass();
-        y += gap_center.y * i->mass();
-        p += i->mass();
-    }
-    std::cout << "Центр масс всей системы: (" << x / p << ", " << y / p << ")\n";
-}
-
-void RectangleClass::summ_size() {
-    unsigned int sum_sz = 0;
-    for (auto i: all_rect) {
-        sum_sz += i->size();
-    }
-    std::cout << "Общий размер памяти, занимаемой системой: " << sum_sz << "\n";
 }
 
 #endif //CLION_PROGRAMMING_RECTANGLE_C

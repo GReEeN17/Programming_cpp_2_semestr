@@ -10,8 +10,6 @@ private:
     CVector2D center;
     int radius;
 public:
-    static std::set<CircleClass*> all_circles;
-
     CircleClass(double x, double y, int radius);
 
     void set_params(double x, double y, int radius);
@@ -39,16 +37,6 @@ public:
     const char* classname() override;
 
     unsigned int size() override;
-
-    static void draw_all_circles();
-
-    static void summ_perimetr();
-
-    static void summ_square();
-
-    static void center_mass_all_circles();
-
-    static void summ_size();
 };
 
 #endif //CLION_PROGRAMMING_CIRCLE_H

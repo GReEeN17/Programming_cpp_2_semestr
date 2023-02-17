@@ -1,31 +1,36 @@
 #ifndef CLION_PROGRAMMING_MENU_4_LAB_H
 #define CLION_PROGRAMMING_MENU_4_LAB_H
+#include "circle/circle.h"
+#include "rectangle/rectangle.h"
 
 class Menu4 {
+private:
+    std::set<CircleClass*> all_circles;
+    std::set<RectangleClass*> all_rect;
 public:
-    void set_cc();
+    static void set_cc(std::set<CircleClass*> &all_circles);
 
-    void set_rc();
+    static void set_rc(std::set<RectangleClass*> &all_rect);
 
-    void draw_cc();
+    static void draw_cc(std::set<CircleClass*> &all_circles);
 
-    void draw_rc();
+    static void draw_rc(std::set<RectangleClass*> &all_rect);
 
-    void per_cc();
+    static void per_cc(std::set<CircleClass*> &all_circles);
 
-    void per_rc();
+    static void per_rc(std::set<RectangleClass*> &all_rect);
 
-    void sq_cc();
+    static void sq_cc(std::set<CircleClass*> &all_circles);
 
-    void sq_rc();
+    static void sq_rc(std::set<RectangleClass*> &all_rect);
 
-    void cm_cc();
+    static void cm_cc(std::set<CircleClass*> &all_circles);
 
-    void cm_rc();
+    static void cm_rc(std::set<RectangleClass*> &all_rect);
 
-    void sz_cc();
+    static void sz_cc(std::set<CircleClass*> &all_circles);
 
-    void sz_rc();
+    static void sz_rc(std::set<RectangleClass*> &all_rect);
 };
 
 #endif //CLION_PROGRAMMING_MENU_4_LAB_H

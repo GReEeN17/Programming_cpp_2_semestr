@@ -6,15 +6,13 @@
 
 class RectangleClass : public IGeoFig, public IDialogInitiable, public IPhysObject, public IPrintable, public BaseCObject{
 private:
-    CVector2D fir_vert;
-    CVector2D sec_vert;
-    CVector2D thi_vert;
-    CVector2D fth_vert;
-    double fir_side;
-    double sec_side;
+    CVector2D fir_vert{};
+    CVector2D sec_vert{};
+    CVector2D thi_vert{};
+    CVector2D fth_vert{};
+    double fir_side{};
+    double sec_side{};
 public:
-    static std::set<RectangleClass*> all_rect;
-
     RectangleClass(double x_1, double y_1, double x_2, double y_2, double x_3, double y_3, double x_4, double y_4);
 
     void set_params(double x_1, double y_1, double x_2, double y_2, double x_3, double y_3, double x_4, double y_4);
@@ -33,9 +31,9 @@ public:
 
     bool operator< ( const IPhysObject& ob ) const override;
 
-    bool equal(RectangleClass& class_1, RectangleClass& class_2) const;
+    static bool equal(RectangleClass& class_1, RectangleClass& class_2) ;
 
-    bool less(RectangleClass& class_1, RectangleClass& class_2) const;
+    static bool less(RectangleClass& class_1, RectangleClass& class_2) ;
 
     void draw() override;
 
@@ -44,16 +42,6 @@ public:
     const char* classname() override;
 
     unsigned int size() override;
-
-    static void draw_all_rects();
-
-    static void summ_perimetr();
-
-    static void summ_square();
-
-    static void center_mass_all_rects();
-
-    static void summ_size();
 };
 
 

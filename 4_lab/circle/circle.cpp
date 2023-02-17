@@ -12,7 +12,6 @@ void CircleClass::set_params(double x, double y, int radius) {
     this->center.x = x;
     this->center.y = y;
     this->radius = radius;
-    all_circles.insert(this);
 }
 
 double CircleClass::square() {
@@ -77,47 +76,6 @@ const char* CircleClass::classname() {
 
 unsigned int CircleClass::size() {
     return sizeof(*this);
-}
-
-void CircleClass::draw_all_circles() {
-    for (auto i: all_circles) {
-        std::cout << "-------------------" << "\n";
-        i->draw();
-    }
-}
-
-void CircleClass::summ_perimetr() {
-    double sum_p = 0;
-    for (auto i: all_circles) {
-        sum_p += i->perimeter();
-    }
-    std::cout << "Общий перриметр всей системы: " << sum_p << "\n";
-}
-
-void CircleClass::summ_square() {
-    double sum_sq = 0;
-    for (auto i: all_circles) {
-        sum_sq += i->square();
-    }
-    std::cout << "Общая площадь всей системы: " << sum_sq << "\n";
-}
-
-void CircleClass::center_mass_all_circles() {
-    double x = 0, y = 0, p = 0;
-    for (auto i: all_circles) {
-        x += i->center.x * i->mass();
-        y += i->center.y * i->mass();
-        p += i->mass();
-    }
-    std::cout << "Центр масс всей системы: (" << x / p << ", " << y / p << ")\n";
-}
-
-void CircleClass::summ_size() {
-    unsigned int sum_sz = 0;
-    for (auto i: all_circles) {
-        sum_sz += i->size();
-    }
-    std::cout << "Общий размер памяти, занимаемой системой: " << sum_sz << "\n";
 }
 
 
