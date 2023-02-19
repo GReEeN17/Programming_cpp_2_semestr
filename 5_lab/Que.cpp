@@ -4,43 +4,53 @@
 #include "Que.h"
 #include "patterns_exceptions.h"
 
-template <size_t N, typename Q>
-Que<N, Q>::Que() {
-    this->array = new Q[N];
-    this->start = 0;
-    this->end = 0;
-    this->len_q = 0;
+template <class Q>
+Que<Q>::Que(int N) {
+    array = new Q[N];
+    start = 0;
+    end = -1;
+    len_q = 0;
+    capacity = N;
 }
 
-template <size_t N, typename Q>
-Que<N, Q>::~Que() {
-    delete[] this->array;
-}
-
-template <size_t N, typename Q>
-void Que<N, Q>::push(const Q &value) {
-    if (this->len_q == N) {
+template <class Q>
+void Que<Q>::push(Q value) {
+    if (is_full())
         throw QueException("ERROR. Que over flow");
-    } else {
-        this->array[end] = value;
-        this->end++;
-        this->len_q++;
-    }
+    end = (end + 1) % capacity;
+    array[end] = value;
+    len_q++;
 }
 
-template <size_t N, typename Q>
-void Que<N, Q>::pop() {
-    if (this->len_q == 0) {
+template <class Q>
+void Que<Q>::pop() {
+    if (is_empty())
         throw QueException("ERROR. Out of range");
-    } else {
-        this->array[this->start++];
-    }
+    start = (start + 1) % capacity;
+    len_q--;
 }
 
-template<typename Q>
-Q Max(Q* array) {
+template <class Q>
+int Que<Q>::size() {
+    return len_q;
+}
+
+template <class Q>
+bool Que<Q>::is_empty() {
+    return (size() == 0);
+}
+
+template <class Q>
+bool Que<Q>::is_full() {
+    return (size() == capacity);
+}
+
+template <class Q>
+Q Que<Q>::max_elem() {
+    if (is_empty())
+        throw QueException("ERROR. Out of range");
     Q max = array[0];
-    for (size_t i = 1; i < sizeof(array); i++) {
+    for (int i = 1; i < len_q; i++) {
         if (array[i] > max) max = array[i];
     }
     return max;
