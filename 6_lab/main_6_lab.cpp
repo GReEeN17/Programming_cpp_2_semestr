@@ -75,13 +75,13 @@ bool is_symmetric(T fir, T sec) {
     return fir == sec;
 }
 
-bool is_both_even(Numbers<int> numb) {
+inline bool is_both_even(Numbers<int> numb) {
     bool fir = isEven(numb.get_fir());
     bool sec = isEven(numb.get_sec());
     return fir && sec;
 }
 
-bool is_both_odd(Numbers<int> numb) {
+inline bool is_both_odd(Numbers<int> numb) {
     bool fir = isOdd(numb.get_fir());
     bool sec = isOdd(numb.get_sec());
     return fir && sec;
@@ -109,24 +109,20 @@ inline void main_6_lab() {
             Numbers(14, 16)
     };
 
-    std::vector<int> Num_4 = {1, 3, 5, 7, 9};
+    std::vector<int> Num_4 = {1, 3, 5, 3, 1};
 
     std::vector<int> Num_5 = {1, 2, 3, 4, 5};
 
     std::vector<int> Num_6 = {2, 4, 5, 6, 8};
 
-    std::vector<int> Num_7 = {0, 2, 3, 0, 9};
-
-    std::string str_1 = "abcba";
-
-    std::string str_2 = "abcde";
+    std::vector<float> Num_7 = {0.0, 2.0, 3.0, 2.3, 0.0};
 
     std::cout << "any_of: " << CustAlgo::any_of(Num_4.begin(), Num_4.end(), isEven<int>) << "\n";
     std::cout << "any_of: " << CustAlgo::any_of(Num_5.begin(), Num_5.end(), isEven<int>) << "\n";
     std::cout << "any_of: " << CustAlgo::any_of(Num_1.begin(), Num_1.end(), is_both_even) << '\n';
     std::cout << "any_of: " << CustAlgo::any_of(Num_3.begin(), Num_3.end(), is_both_even) << "\n";
     std::cout << "one_of: " << CustAlgo::one_of(Num_6.begin(), Num_6.end(), isOdd<int>) << "\n";
-    std::cout << "one_of: " << CustAlgo::one_of(Num_7.begin(), Num_7.end(), isNull<int>) << "\n";
-    std::cout << "is_palindrome: " << CustAlgo::is_palindrome()
+    std::cout << "one_of: " << CustAlgo::one_of(Num_7.begin(), Num_7.end(), isNull<float>) << "\n";
+    std::cout << "is_palindrome: " << CustAlgo::is_palindrome(Num_4.begin(), Num_4.end(), is_symmetric<int>);
 }
 
