@@ -11,9 +11,12 @@ void swap_values_ref(int &fir_var, int &sec_var) {
 }
 
 void swap_values_pntr(int *fir_var, int *sec_var) {
-    int temp = *fir_var;
+    /*int temp = *fir_var;
     *fir_var = *sec_var;
-    *sec_var = temp;
+    *sec_var = temp;*/
+    int *gap = fir_var;
+    fir_var = sec_var;
+    sec_var = gap;
 }
 
 void test_swap_values(int &exp_fir_var, int &exp_sec_var, int &fact_fir_var, int &fact_sec_var) {

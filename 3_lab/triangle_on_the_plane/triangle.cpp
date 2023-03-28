@@ -1,3 +1,4 @@
+/*
 #ifndef CLION_PROGRAMMING_TRIANGLE_C
 #define CLION_PROGRAMMING_TRIANGLE_C
 #include <iostream>
@@ -8,9 +9,9 @@ Triangle::Triangle(int x_1, int y_1, int x_2, int y_2, int x_3, int y_3) {
     dot a(x_1, y_1);
     dot b(x_2, y_2);
     dot c(x_3, y_3);
-    this->fir_vert = &a;
-    this->sec_vert = &b;
-    this->thi_vert = &c;
+    this->fir_vert = a;
+    this->sec_vert = b;
+    this->thi_vert = c;
     set_sides();
     set_square();
 }
@@ -53,4 +54,4 @@ void Triangle::add_vector(int x, int y) {
 
 
 
-#endif //CLION_PROGRAMMING_TRIANGLE_C
+#endif //CLION_PROGRAMMING_TRIANGLE_C*/

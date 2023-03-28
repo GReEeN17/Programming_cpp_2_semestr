@@ -13,9 +13,9 @@ private:
         }
     };
 
-    dot *fir_vert;
-    dot *sec_vert;
-    dot *thi_vert;
+    dot fir_vert;
+    dot sec_vert;
+    dot thi_vert;
     double fir_side = 0;
     double sec_side = 0;
     double thi_side = 0;

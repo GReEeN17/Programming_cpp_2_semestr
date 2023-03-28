@@ -11,6 +11,7 @@ private:
     bool is_parsed = false;
     int len_separators = 0;
     int len_parsed_str = 0;
+    int ind_substring = 0;
 public:
     StrParser (std::string &parsing_str);
 

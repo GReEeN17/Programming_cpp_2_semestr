@@ -56,9 +56,12 @@ void StrParser::delete_all_separators() {
 }
 
 void StrParser::get_next_str(std::string &next_string) {
-    this->parsing_str = next_string;
-    this->len_parsed_str = 0;
-    this->parsed_str.clear();
+    if (ind_substring >= parsed_str.size()) {
+        std::cout << "Следующей подстроки нет" << "\n";
+    } else {
+        std::cout << parsing_str[ind_substring] << "\n";
+        ind_substring++;
+    }
 }
 
 void StrParser::indicate_if_parsed() {

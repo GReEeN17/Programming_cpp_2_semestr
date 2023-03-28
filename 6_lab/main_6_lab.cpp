@@ -3,29 +3,34 @@
 
 namespace CustAlgo {
     template<typename T, typename P>
-    bool any_of(const T &start, const T &end, P &p) {
-        for (T i = start; i < end; i++) {
+    bool any_of(const T &container, P &p) {
+        auto i = container.begin();
+        while (i != container.end()){
             if (p(*i)) {
                 return true;
             }
+            ++i;
         }
         return false;
     }
 
     template <typename T, typename P>
-    bool one_of(const T &start, const T &end, P &p) {
+    bool one_of(const T &container, P &p) {
         int count = 0;
-        for (T i = start; i < end; i++) {
+        auto i = container.begin();
+        while (i != container.end()) {
             if (p(*i)) {
                 count++;
             }
+            ++i;
         }
         return (count == 1);
     }
 
     template <typename T, typename P>
-    bool is_palindrome(const T &start, const T &end, P &p) {
-        T st = start, ed = end - 1;
+    bool is_palindrome(const T &container, P &p) {
+        auto st = container.begin();
+        auto ed = container.end() - 1;
         while (st < ed) {
             if (!p(*st++, *ed--)) {return false;}
         }
@@ -117,12 +122,12 @@ inline void main_6_lab() {
 
     std::vector<float> Num_7 = {0.0, 2.0, 3.0, 2.3, 0.0};
 
-    std::cout << "any_of: " << CustAlgo::any_of(Num_4.begin(), Num_4.end(), isEven<int>) << "\n";
-    std::cout << "any_of: " << CustAlgo::any_of(Num_5.begin(), Num_5.end(), isEven<int>) << "\n";
-    std::cout << "any_of: " << CustAlgo::any_of(Num_1.begin(), Num_1.end(), is_both_even) << '\n';
-    std::cout << "any_of: " << CustAlgo::any_of(Num_3.begin(), Num_3.end(), is_both_even) << "\n";
-    std::cout << "one_of: " << CustAlgo::one_of(Num_6.begin(), Num_6.end(), isOdd<int>) << "\n";
-    std::cout << "one_of: " << CustAlgo::one_of(Num_7.begin(), Num_7.end(), isNull<float>) << "\n";
-    std::cout << "is_palindrome: " << CustAlgo::is_palindrome(Num_4.begin(), Num_4.end(), is_symmetric<int>);
+    std::cout << "any_of: " << CustAlgo::any_of(Num_4, isEven<int>) << "\n";
+    std::cout << "any_of: " << CustAlgo::any_of(Num_5, isEven<int>) << "\n";
+    std::cout << "any_of: " << CustAlgo::any_of(Num_1, is_both_even) << '\n';
+    std::cout << "any_of: " << CustAlgo::any_of(Num_3, is_both_even) << "\n";
+    std::cout << "one_of: " << CustAlgo::one_of(Num_6, isOdd<int>) << "\n";
+    std::cout << "one_of: " << CustAlgo::one_of(Num_7, isNull<float>) << "\n";
+    std::cout << "is_palindrome: " << CustAlgo::is_palindrome(Num_4, is_symmetric<int>);
 }
 
