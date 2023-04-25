@@ -12,7 +12,9 @@ private:
     int size;
     T* buffer;
     T* currentFirst;
+    int indexFirst;
     T* currentLast;
+    int indexLast;
     T* bufferFirst;
     T* bufferLast;
 public:
@@ -90,10 +92,12 @@ public:
         this->size = 0;
         this->capacity = capacity;
         this->buffer = new T[capacity];
-        this->bufferFirst = buffer[0];
-        this->bufferLast = buffer[capacity - 1];
-        this->currentFirst = buffer[0];
-        this->currentLast = buffer[0];
+        this->bufferFirst = &buffer[0];
+        this->bufferLast = &buffer[capacity - 1];
+        this->currentFirst = &buffer[0];
+        this->currentLast = &buffer[0];
+        this->indexFirst = 0;
+        this->indexLast = 0;
     }
 
     int getSize() {
@@ -112,38 +116,50 @@ public:
         return Iterator(buffer + capacity - 1);
     }
 
-    void pushFront(T &value) {
+    void pushFront(const T &value) {
         *currentFirst = value;
+        size++;
         if (currentFirst == bufferFirst) {
+            indexFirst = capacity - 1;
             currentFirst = bufferLast;
         } else {
+            indexFirst--;
             currentFirst--;
         }
     }
 
-    void pushBack(T &value) {
+    void pushBack(const T &value) {
         *currentLast = value;
+        size++;
         if (currentLast == bufferLast) {
+            indexLast = 0;
             currentLast = bufferFirst;
         } else {
+            indexLast++;
             currentLast++;
         }
     }
 
     void popFront() {
         *currentFirst = 0;
+        size--;
         if (currentFirst == bufferLast) {
+            indexFirst = 0;
             currentFirst = bufferFirst;
         } else {
+            indexFirst++;
             currentFirst++;
         }
     }
 
     void popBack() {
         *currentLast = 0;
+        size--;
         if (currentLast == bufferFirst) {
+            indexLast = capacity - 1;
             currentLast = bufferLast;
         } else {
+            indexLast--;
             currentLast--;
         }
     }
@@ -153,11 +169,16 @@ public:
             cout << "Set capacity more than current" << "\n";
             return;
         }
-        T* gapBuffer = new T[capacity];
+        T* helpBuffer = new T[capacity];
         for (int i = 0; i < this->capacity; i++) {
-            gapBuffer[i] = *buffer[i];
+            helpBuffer[i] = buffer[i];
         }
-        buffer = gapBuffer;
+        delete[] buffer;
+        buffer = helpBuffer;
+        currentFirst = &buffer[indexFirst];
+        currentLast = &buffer[indexLast];
+        bufferFirst = &buffer[0];
+        bufferLast = &buffer[capacity - 1];
         this->capacity = capacity;
     }
 
@@ -166,10 +187,14 @@ public:
     }
 
     void print() {
-        for (T i = &buffer[0]; i != &buffer[capacity - 1]; i++) {
-            cout << *i << " ";
+        for (int i = 0; i < capacity; i++) {
+            cout << buffer[i] << " ";
         }
         cout << "\n";
+    }
+
+    ~CircularBuffer() {
+        delete[] buffer;
     }
 };
 

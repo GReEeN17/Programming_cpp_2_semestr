@@ -4,6 +4,7 @@
 #include "4_lab/main_4_lab.cpp"
 #include "5_lab/main_5_lab.cpp"
 #include "6_lab/main_6_lab.cpp"
+#include "7_lab/mainLab7.cpp"
 
 
 int main() {
@@ -12,6 +13,7 @@ int main() {
     //main_3_lab();
     //main_4_lab();
     //main_5_lab();
-    main_6_lab();
+    //main_6_lab();
+    mainLab7();
     return 0;
 }
