@@ -8,7 +8,11 @@ inline int mainLab7() {
 
     auto iterator = CircularBuffer<int>::Iterator(circularBuffer.start());
     circularBuffer.pushFront(1);
+    cout << *iterator << "\n";
     circularBuffer.pushFront(2);
+    ++iterator;
+    ++iterator;
+    cout << *iterator << "\n";
     circularBuffer.pushFront(3);
     circularBuffer.print();
     circularBuffer.setCapacity(4);
@@ -33,8 +37,6 @@ inline int mainLab7() {
     circularBuffer.popBack();
     circularBuffer.popFront();
 
-    cout << *iterator << "\n";
-    iterator++;
     cout << *iterator << "\n";
     return 0;
 }

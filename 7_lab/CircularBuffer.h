@@ -1,6 +1,7 @@
 #ifndef CLION_PROGRAMMING_CIRCULARBUFFER_H
 #define CLION_PROGRAMMING_CIRCULARBUFFER_H
 #include <iostream>
+#include <iterator>
 #include <algorithm>
 
 using namespace std;
@@ -18,7 +19,7 @@ private:
     T* bufferFirst;
     T* bufferLast;
 public:
-    class Iterator {
+    class Iterator : public iterator<random_access_iterator_tag, T>{
     private:
         T *currentValue;
     public:
@@ -33,12 +34,12 @@ public:
         }
 
 
-        T& operator ++ (int) {
-            return *(currentValue++);
+        T& operator ++ () {
+            return *(++currentValue);
         };
 
-        T& operator -- (int) {
-            return *(currentValue--);
+        T& operator -- () {
+            return *(--currentValue);
         }
 
         T& operator * () const {
@@ -54,27 +55,27 @@ public:
             return *this;
         }
 
-        bool operator == (const Iterator* other) {
+        bool operator == (const Iterator* other) const{
             return this->currentValue == other->currentValue;
         }
 
-        bool operator != (const Iterator* other) {
+        bool operator != (const Iterator* other) const{
             return this->currentValue != other->currentValue;
         }
 
-        bool operator > (const Iterator* other) {
+        bool operator > (const Iterator* other) const{
             return this->currentValue > other->currentValue;
         }
 
-        bool operator < (const Iterator* other) {
+        bool operator < (const Iterator* other) const{
             return this->currentValue < other->currentValue;
         }
 
-        bool operator >= (const Iterator* other) {
+        bool operator >= (const Iterator* other) const{
             return this->currentValue >= other->currentValue;
         }
 
-        bool operator <= (const Iterator* other) {
+        bool operator <= (const Iterator* other) const{
             return this->currentValue <= other->currentValue;
         }
     };
@@ -104,7 +105,7 @@ public:
     }
 
     Iterator end() {
-        return buffer + capacity - 1;
+        return buffer + capacity;
     }
 
     void pushFront(const T &value) {
