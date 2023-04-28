@@ -5,7 +5,7 @@
 
 using namespace std;
 
-template<class T>
+template<typename T>
 class CircularBuffer{
 private:
     int capacity;
@@ -18,44 +18,35 @@ private:
     T* bufferFirst;
     T* bufferLast;
 public:
-    class Iterator : public std::iterator<std::random_access_iterator_tag, T> {
+    class Iterator {
     private:
         T *currentValue;
     public:
-        explicit Iterator(T currentValue) {
-            this->currentValue = currentValue;
+        Iterator(T *currentValue_) : currentValue(currentValue_){}
+
+        T& operator + (int value) {
+            return *(currentValue + value);
         }
 
-        T *getCurrentValue() const {
-            return currentValue;
+        T& operator - (int value) {
+            return *(currentValue - value);
         }
 
-        Iterator& operator + (int value) {
-            currentValue += value;
-            return *this;
-        }
 
-        Iterator& operator - (int value) {
-            currentValue -= value;
-            return *this;
-        }
-
-        Iterator& operator ++ () {
-            currentValue++;
-            return *this;
+        T& operator ++ (int) {
+            return *(currentValue++);
         };
 
-        Iterator& operator -- () {
-            currentValue--;
-            return *this;
+        T& operator -- (int) {
+            return *(currentValue--);
         }
 
         T& operator * () const {
-            return *this;
+            return *currentValue;
         };
 
-        T* operator -> () const {
-            return this;
+        T& operator -> () const {
+            return *currentValue;
         }
 
         Iterator& operator = (T& other) const {
@@ -109,11 +100,11 @@ public:
     }
 
     Iterator start() {
-        return Iterator(buffer);
+        return buffer;
     }
 
     Iterator end() {
-        return Iterator(buffer + capacity - 1);
+        return buffer + capacity - 1;
     }
 
     void pushFront(const T &value) {
@@ -164,12 +155,12 @@ public:
         }
     }
 
-    void setCapacity(int capacity) {
-        if (this->capacity >= capacity) {
+    void setCapacity(int capacity_) {
+        if (this->capacity >= capacity_) {
             cout << "Set capacity more than current" << "\n";
             return;
         }
-        T* helpBuffer = new T[capacity];
+        T* helpBuffer = new T[capacity_];
         for (int i = 0; i < this->capacity; i++) {
             helpBuffer[i] = buffer[i];
         }
@@ -178,12 +169,13 @@ public:
         currentFirst = &buffer[indexFirst];
         currentLast = &buffer[indexLast];
         bufferFirst = &buffer[0];
-        bufferLast = &buffer[capacity - 1];
-        this->capacity = capacity;
+        bufferLast = &buffer[capacity_ - 1];
+        this->capacity = capacity_;
     }
 
-    T operator [] (int index) const {
-        return buffer[index % capacity];
+    T& operator [] (const int index) const {
+        if (index > 0 && index < capacity) return buffer[index];
+        return buffer[0];
     }
 
     void print() {

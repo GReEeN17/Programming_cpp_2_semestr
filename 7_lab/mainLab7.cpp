@@ -5,6 +5,8 @@ using namespace std;
 
 inline int mainLab7() {
     CircularBuffer<int> circularBuffer(3);
+
+    auto iterator = CircularBuffer<int>::Iterator(circularBuffer.start());
     circularBuffer.pushFront(1);
     circularBuffer.pushFront(2);
     circularBuffer.pushFront(3);
@@ -25,4 +27,14 @@ inline int mainLab7() {
     circularBuffer.print();
     circularBuffer.pushBack(10);
     circularBuffer.print();
+
+    cout << circularBuffer.getCapacity() << "\n";
+    cout << circularBuffer.getSize() << "\n";
+    circularBuffer.popBack();
+    circularBuffer.popFront();
+
+    cout << *iterator << "\n";
+    iterator++;
+    cout << *iterator << "\n";
+    return 0;
 }
