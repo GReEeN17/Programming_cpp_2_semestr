@@ -12,42 +12,54 @@ private:
     int capacity;
     int size;
     T* buffer;
-    T* currentFirst;
     int indexFirst;
-    T* currentLast;
     int indexLast;
-    T* bufferFirst;
-    T* bufferLast;
 public:
     class Iterator : public iterator<random_access_iterator_tag, T>{
     private:
         T *currentValue;
     public:
-        Iterator(T *currentValue_) : currentValue(currentValue_){}
-
-        T& operator + (int value) {
-            return *(currentValue + value);
+        using difference_type = typename std::iterator<std::random_access_iterator_tag, T>::difference_type;
+        difference_type operator-(const Iterator& obj) const
+        {
+            return currentValue - obj.currentValue;
         }
 
-        T& operator - (int value) {
-            return *(currentValue - value);
+        explicit Iterator(T *currentValue_) {
+            currentValue = currentValue_;
+        }
+
+        Iterator (const Iterator& other) {
+            currentValue = other.currentValue;
+        }
+
+        Iterator operator + (int value) {
+            currentValue += value;
+            return *this;
+        }
+
+        Iterator operator - (int value) {
+            currentValue -= value;
+            return *this;
         }
 
 
-        T& operator ++ () {
-            return *(++currentValue);
+        Iterator operator ++ () {
+            ++currentValue;
+            return *this;
         };
 
-        T& operator -- () {
-            return *(--currentValue);
+        Iterator operator -- () {
+            --currentValue;
+            return *this;
         }
 
         T& operator * () const {
             return *currentValue;
         };
 
-        T& operator -> () const {
-            return *currentValue;
+        T* operator -> () const {
+            return currentValue;
         }
 
         Iterator& operator = (T& other) const {
@@ -84,10 +96,6 @@ public:
         this->size = 0;
         this->capacity = capacity;
         this->buffer = new T[capacity];
-        this->bufferFirst = &buffer[0];
-        this->bufferLast = &buffer[capacity - 1];
-        this->currentFirst = &buffer[0];
-        this->currentLast = &buffer[0];
         this->indexFirst = 0;
         this->indexLast = 0;
     }
@@ -100,60 +108,63 @@ public:
         return this->capacity;
     }
 
-    Iterator start() {
-        return buffer;
+    Iterator begin() {
+        return Iterator(buffer);
     }
 
     Iterator end() {
-        return buffer + capacity;
+        return Iterator(buffer + capacity);
     }
 
     void pushFront(const T &value) {
-        *currentFirst = value;
-        size++;
-        if (currentFirst == bufferFirst) {
-            indexFirst = capacity - 1;
-            currentFirst = bufferLast;
-        } else {
-            indexFirst--;
-            currentFirst--;
+        if (indexFirst == indexLast && size == 0) {
+            buffer[indexFirst] = value;
+            size++;
+            return;
         }
+        indexFirst = indexFirst == 0 ? capacity - 1 : indexFirst - 1;
+        if (size == capacity) {
+            indexLast = indexLast == 0 ? capacity - 1 : indexLast - 1;
+        } else {
+            size++;
+        }
+        buffer[indexFirst] = value;
     }
 
     void pushBack(const T &value) {
-        *currentLast = value;
-        size++;
-        if (currentLast == bufferLast) {
-            indexLast = 0;
-            currentLast = bufferFirst;
-        } else {
-            indexLast++;
-            currentLast++;
+        if (indexFirst == indexLast && size == 0) {
+            buffer[indexLast] = value;
+            size++;
+            return;
         }
+        indexLast = indexLast == capacity - 1 ? 0 : indexLast + 1;
+        if (size == capacity) {
+            indexFirst = indexFirst == capacity - 1 ? 0 : indexFirst + 1;
+        } else {
+            size++;
+        }
+        buffer[indexLast] = value;
     }
 
     void popFront() {
-        *currentFirst = 0;
+        buffer[indexFirst] = 0;
+        indexFirst = indexFirst == capacity - 1 ? 0 : indexFirst + 1;
         size--;
-        if (currentFirst == bufferLast) {
-            indexFirst = 0;
-            currentFirst = bufferFirst;
-        } else {
-            indexFirst++;
-            currentFirst++;
-        }
     }
 
     void popBack() {
-        *currentLast = 0;
+        buffer[indexLast] = 0;
+        indexLast = indexLast == 0 ? capacity - 1 : indexLast - 1;
         size--;
-        if (currentLast == bufferFirst) {
-            indexLast = capacity - 1;
-            currentLast = bufferLast;
-        } else {
-            indexLast--;
-            currentLast--;
-        }
+    }
+
+    void insert(Iterator iterator, T value) {
+        cout << (iterator - begin()) % capacity << "\n";
+        /*(begin() + (iterator - begin()) % capacity) = value;*/
+    }
+
+    void remove(Iterator iterator) {
+
     }
 
     void setCapacity(int capacity_) {
@@ -167,16 +178,15 @@ public:
         }
         delete[] buffer;
         buffer = helpBuffer;
-        currentFirst = &buffer[indexFirst];
-        currentLast = &buffer[indexLast];
-        bufferFirst = &buffer[0];
-        bufferLast = &buffer[capacity_ - 1];
         this->capacity = capacity_;
     }
 
     T& operator [] (const int index) const {
         if (index > 0 && index < capacity) return buffer[index];
-        return buffer[0];
+        else {
+            cout << "Index is out of range, take other" << "\n";
+            return buffer[0];
+        }
     }
 
     void print() {
