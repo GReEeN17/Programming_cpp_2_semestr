@@ -147,24 +147,63 @@ public:
     }
 
     void popFront() {
+        if (size == 0) {
+            cout << "there is no elements to delete, size is 0" << "\n";
+            return;
+        }
         buffer[indexFirst] = 0;
         indexFirst = indexFirst == capacity - 1 ? 0 : indexFirst + 1;
         size--;
     }
 
     void popBack() {
+        if (size == 0) {
+            cout << "there is no elements to delete, size is 0" << "\n";
+            return;
+        }
         buffer[indexLast] = 0;
         indexLast = indexLast == 0 ? capacity - 1 : indexLast - 1;
         size--;
     }
 
     void insert(Iterator iterator, T value) {
-        cout << (iterator - begin()) % capacity << "\n";
-        /*(begin() + (iterator - begin()) % capacity) = value;*/
+        int index = (iterator - begin()) % capacity;
+        if (!inRange(index)) {
+            cout << "Iterator is out of range, increment or decrement it" << "\n";
+            return;
+        }
+        T bufferLastItem = buffer[indexLast];
+        int i = indexLast;
+        while (i != index) {
+            buffer[i % capacity] = buffer[(i - 1) % capacity];
+            i = i > 0 ? i - 1 : capacity - 1;
+        }
+        buffer[index] = value;
+        if (size != capacity) {
+            size++;
+            indexLast = indexLast == capacity - 1 ? 0 : indexLast + 1;
+            buffer[indexLast] = bufferLastItem;
+        }
     }
 
     void remove(Iterator iterator) {
-
+        if (size == 0) {
+            cout << "there is no elements to delete, size is 0" << "\n";
+            return;
+        }
+        int index = (iterator - begin()) % capacity;
+        if (!inRange(index)) {
+            cout << "Iterator is out of range, increment or decrement it" << "\n";
+            return;
+        }
+        int bufferIndexLast = indexLast;
+        while (index != indexLast) {
+            buffer[index % capacity] = buffer[(index + 1) % capacity];
+            index = index == capacity - 1 ? 0 : index + 1;
+        }
+        indexLast = indexLast == 0 ? capacity - 1 : indexLast - 1;
+        buffer[bufferIndexLast] = 0;
+        size--;
     }
 
     void setCapacity(int capacity_) {
@@ -182,11 +221,7 @@ public:
     }
 
     T& operator [] (const int index) const {
-        if (index > 0 && index < capacity) return buffer[index];
-        else {
-            cout << "Index is out of range, take other" << "\n";
-            return buffer[0];
-        }
+        return buffer[index % capacity];
     }
 
     void print() {
@@ -198,6 +233,13 @@ public:
 
     ~CircularBuffer() {
         delete[] buffer;
+    }
+
+private:
+    bool inRange(int index) {
+        bool firstCondition = indexFirst <= indexLast && (index < indexFirst || index > indexLast);
+        bool secondCondition = indexFirst > indexLast && index > indexLast && index < indexFirst;
+        return !(firstCondition || secondCondition);
     }
 };
 
