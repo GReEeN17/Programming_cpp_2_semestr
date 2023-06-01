@@ -25,7 +25,7 @@ public:
             return currentValue - obj.currentValue;
         }
 
-        explicit Iterator(T *currentValue_) {
+        Iterator(T *currentValue_) {
             currentValue = currentValue_;
         }
 
@@ -92,7 +92,7 @@ public:
         }
     };
 
-    explicit CircularBuffer(int capacity) {
+    CircularBuffer(int capacity) {
         this->size = 0;
         this->capacity = capacity;
         this->buffer = new T[capacity];

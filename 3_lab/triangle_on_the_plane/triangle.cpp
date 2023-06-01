@@ -1,4 +1,3 @@
-/*
 #ifndef CLION_PROGRAMMING_TRIANGLE_C
 #define CLION_PROGRAMMING_TRIANGLE_C
 #include <iostream>
@@ -17,9 +16,9 @@ Triangle::Triangle(int x_1, int y_1, int x_2, int y_2, int x_3, int y_3) {
 }
 
 void Triangle::set_sides() {
-    this->fir_side = sqrt(pow(this->fir_vert->x - this->sec_vert->x, 2) + pow(this->fir_vert->y - this->sec_vert->y, 2));
-    this->sec_side = sqrt(pow(this->sec_vert->x - this->thi_vert->x, 2) + pow(this->sec_vert->y - this->thi_vert->y, 2));
-    this->thi_side = sqrt(pow(this->thi_vert->x - this->fir_vert->x, 2) + pow(this->thi_vert->y - this->fir_vert->y, 2));
+    this->fir_side = sqrt(pow(this->fir_vert.x - this->sec_vert.x, 2) + pow(this->fir_vert.y - this->sec_vert.y, 2));
+    this->sec_side = sqrt(pow(this->sec_vert.x - this->thi_vert.x, 2) + pow(this->sec_vert.y - this->thi_vert.y, 2));
+    this->thi_side = sqrt(pow(this->thi_vert.x - this->fir_vert.x, 2) + pow(this->thi_vert.y - this->fir_vert.y, 2));
 }
 
 void Triangle::set_square() {
@@ -44,14 +43,14 @@ bool operator>(Triangle& first_tr, Triangle& second_tr) {
 }
 
 void Triangle::add_vector(int x, int y) {
-    this->fir_vert->x = this->fir_vert->x + x;
-    this->fir_vert->y = this->fir_vert->y + y;
-    this->sec_vert->x = this->sec_vert->x + x;
-    this->sec_vert->y = this->sec_vert->y + y;
-    this->thi_vert->x = this->thi_vert->x + x;
-    this->thi_vert->y = this->thi_vert->y + y;
+    this->fir_vert.x = this->fir_vert.x + x;
+    this->fir_vert.y = this->fir_vert.y + y;
+    this->sec_vert.x = this->sec_vert.x + x;
+    this->sec_vert.y = this->sec_vert.y + y;
+    this->thi_vert.x = this->thi_vert.x + x;
+    this->thi_vert.y = this->thi_vert.y + y;
 }
 
 
 
-#endif //CLION_PROGRAMMING_TRIANGLE_C*/
+#endif //CLION_PROGRAMMING_TRIANGLE_C
